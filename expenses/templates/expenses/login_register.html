@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login / Register</title>
+    <style>
+        /* Base Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        /* Blurred background image */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: url("{% static 'login.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1;
+        }
+        /* Container for the cards */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;  /* This ensures children are the same height */
+            height: 50%;
+            gap: 20px;
+            padding: 20%;
+        }
+        /* Glass-effect card styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            max-width: 400px;
+            width: 100%;
+            flex: 1; /* Allow cards to grow equally */
+            display: flex;
+            flex-direction: column;
+        }
+        .glass-card h2 {
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        .glass-card p {
+            font-size: 1em;
+            color: #eee;
+        }
+        /* Form within card takes available space */
+        .glass-card form {
+            margin-top: 15px;
+            flex: 1;
+        }
+        /* Form input styling */
+        .glass-card input[type="text"],
+        .glass-card input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        /* Button styling */
+        .glass-card button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    
+    <div class="container">
+        <!-- Existing User Card -->
+        <div class="glass-card">
+            <h2>Existing User</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ login_form.as_p }}
+                <button type="submit" name="login">Login</button>
+            </form>
+        </div>
+        
+        <!-- New User Card -->
+        <div class="glass-card">
+            <h2>New User</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ register_form.as_p }}
+                <button type="submit" name="register">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
